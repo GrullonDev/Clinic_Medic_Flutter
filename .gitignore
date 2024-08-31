@@ -34,6 +34,7 @@ pubspec.lock
 /build/
 .dart_tool/
 .idea/
+.fvmrc
 
 # Symbolication related
 app.*.symbols
@@ -45,3 +46,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# FVM Version Cache
+.fvm/
