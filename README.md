@@ -122,5 +122,5 @@ Este proyecto está bajo la Licencia @MIT. Consulta el archivo LICENSE para más
 Para cualquier consulta o sugerencia, puedes contactarme en:
 
 - Correo Electrónico: prosystem155@gmail.com
-- LinkedIn: Jorge Grullón
+- LinkedIn: [Jorge Grullón](https://www.linkedin.com/in/jorge-grull%C3%B3n-289719282?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)
 - Github: [GrullonDev](https://github.com/GrullonDev)
