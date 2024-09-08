@@ -50,6 +50,12 @@ app.*.map.json
 # FVM Version Cache
 .fvm/
 
+# Firebase
+database.rules.json
+firebase.json
+package-lock.json
+node_modules/
+
 # Environment files
 .env.development
 .env.production

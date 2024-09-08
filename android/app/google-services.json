@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "996272508120",
+    "firebase_url": "https://medicalclinic-9c2a6-default-rtdb.firebaseio.com",
+    "project_id": "medicalclinic-9c2a6",
+    "storage_bucket": "medicalclinic-9c2a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996272508120:android:6e9d8bcd1fa227344d9bad",
+        "android_client_info": {
+          "package_name": "com.medicalclinic.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBTiP1ouDZ6VTJsBWd0vFEangIOix_tZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
