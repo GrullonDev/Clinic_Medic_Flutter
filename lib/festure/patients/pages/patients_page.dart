@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:proyecto_graduacion/festure/patients/bloc/patients_bloc.dart';
 import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
 import 'package:proyecto_graduacion/widgets/utils/appbar.dart';
+import 'package:proyecto_graduacion/widgets/utils/back_button.dart';
 import 'package:proyecto_graduacion/widgets/utils/base_model_scaffold.dart';
-import 'package:proyecto_graduacion/widgets/utils/buttons/text_button.dart';
 
 class PatientsPage extends StatelessWidget {
   const PatientsPage({super.key});
@@ -19,9 +19,8 @@ class PatientsPage extends StatelessWidget {
       builder: (context, value) => Scaffold(
         appBar: CustomAppBar(
           title: 'Lista de Pacientes',
-          onBack: AppTextButton(
-            title: 'REGRESAR',
-            onTap: () => context.go(AppRoutes.home),
+          onBack: AppBackButton(
+            onPressed: () => context.go(AppRoutes.home),
           ),
           icon: Icons.refresh,
           onTap: () {

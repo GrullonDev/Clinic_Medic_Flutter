@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
 import 'package:proyecto_graduacion/widgets/utils/appbar.dart';
 import 'package:proyecto_graduacion/widgets/utils/drawer.dart';
+import 'package:proyecto_graduacion/widgets/utils/back_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -14,15 +17,17 @@ class _ProfilePageState extends State<ProfilePage> {
   String _nombre = 'Dr. Juan Pérez';
   String _especialidad = 'Cardiología';
   String _email = 'juan.perez@clinica.com';
-  String _telefono = '+1 234 567 8900';
+  String _telefono = '+502 5690 6791';
   String _licencia = 'MED-12345';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
+        onBack: AppBackButton(
+          onPressed: () => context.go(AppRoutes.home),
+        ),
         title: 'Perfil',
-        onSearchPressed: () {},
         onTap: () {
           if (_formKey.currentState!.validate()) {
             _formKey.currentState!.save();

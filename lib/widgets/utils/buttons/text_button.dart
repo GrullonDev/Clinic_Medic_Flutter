@@ -16,7 +16,6 @@ class AppTextButton extends StatelessWidget {
   final String? title;
   final Widget? child;
   final VoidCallback? onTap;
-
   final ButtonStyle? style;
 
   @override

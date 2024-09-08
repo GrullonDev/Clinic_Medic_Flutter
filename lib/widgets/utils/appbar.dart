@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:proyecto_graduacion/home.dart';
-import 'package:proyecto_graduacion/widgets/utils/buttons/text_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
