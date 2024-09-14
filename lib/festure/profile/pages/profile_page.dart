@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:proyecto_graduacion/widgets/images/assets_image.dart';
 import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
 import 'package:proyecto_graduacion/widgets/utils/appbar.dart';
 import 'package:proyecto_graduacion/widgets/utils/drawer.dart';
@@ -53,8 +54,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       const CircleAvatar(
                         radius: 80,
-                        backgroundImage:
-                            AssetImage('assets/doctor_placeholder.png'),
+                        child: CustomImageWidget(
+                          imageUrl: '',
+                        ),
                       ),
                       Positioned(
                         bottom: 0,
