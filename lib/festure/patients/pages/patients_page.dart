@@ -15,7 +15,9 @@ class PatientsPage extends StatelessWidget {
     final bloc = context.read<PatientsBloc>();
 
     return BaseModelScaffold(
-      model: PatientsBloc(),
+      model: PatientsBloc(
+        context: context,
+      ),
       builder: (context, value) => Scaffold(
         appBar: CustomAppBar(
           title: 'Lista de Pacientes',

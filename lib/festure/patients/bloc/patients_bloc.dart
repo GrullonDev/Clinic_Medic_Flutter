@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_graduacion/domain/entities/patients/patients_entity.dart';
 import 'package:proyecto_graduacion/widgets/utils/base_model.dart';
+import 'package:proyecto_graduacion/widgets/utils/message_display.dart';
 
 class PatientsBloc extends BaseModel {
+  PatientsBloc({
+    required BuildContext context,
+  }) : _context = context {
+    _pacientesFiltrados = List.from(_pacientes);
+  }
+
+  final BuildContext _context;
   final formKey = GlobalKey<FormState>();
 
   final List<Patient> _pacientes = [
@@ -53,10 +61,6 @@ class PatientsBloc extends BaseModel {
   int _sortColumnIndex = 0;
   bool _sortAscending = true;
 
-  PatientsBloc() {
-    _pacientesFiltrados = List.from(_pacientes);
-  }
-
   List<Patient> get pacientesFiltrados => _pacientesFiltrados;
   int get sortColumnIndex => _sortColumnIndex;
   bool get sortAscending => _sortAscending;
@@ -88,8 +92,10 @@ class PatientsBloc extends BaseModel {
   void savePatientNew() {
     if (formKey.currentState!.validate()) {
       // Guardar paciente
+      MessageDisplay.success(_context, 'Paciente guardado');
 
       notifyListeners();
     }
+    MessageDisplay.failure(_context, 'Paciente no guardado');
   }
 }

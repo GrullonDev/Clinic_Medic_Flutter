@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
           create: (_) => DashboardViewModel(),
         ),
         ChangeNotifierProvider(
-          create: (_) => PatientsBloc(),
+          create: (_) => PatientsBloc(
+            context: context,
+          ),
         ),
       ],
       child: MaterialApp.router(

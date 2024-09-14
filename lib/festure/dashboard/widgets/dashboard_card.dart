@@ -15,18 +15,16 @@ class DashboardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(16.0),
       child: InkWell(
         onTap: onTap,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Icon(icon, size: 50.0),
-              const SizedBox(height: 16.0),
-              Text(title, style: Theme.of(context).textTheme.titleLarge),
-            ],
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(icon),
+            const SizedBox(height: 16.0),
+            Text(title, style: Theme.of(context).textTheme.titleLarge),
+          ],
         ),
       ),
     );
