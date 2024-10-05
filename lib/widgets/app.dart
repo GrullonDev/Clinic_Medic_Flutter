@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyecto_graduacion/domain/repository/patients/patients_repository.dart';
 import 'package:proyecto_graduacion/festure/dashboard/bloc/dashboard_bloc.dart';
 import 'package:proyecto_graduacion/festure/patients/bloc/patients_bloc.dart';
+import 'package:proyecto_graduacion/festure/profile/bloc/profile_bloc.dart';
+import 'package:proyecto_graduacion/injection_container.dart';
 import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
 
 class MyApp extends StatelessWidget {
@@ -18,7 +21,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => PatientsBloc(
             context: context,
+            patientsRepository: sl.get<PatientsRepository>(),
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProfileBloc(),
         ),
       ],
       child: MaterialApp.router(

@@ -1,61 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_graduacion/domain/entities/patients/patients_entity.dart';
+import 'package:proyecto_graduacion/domain/repository/patients/patients_repository.dart';
 import 'package:proyecto_graduacion/widgets/utils/base_model.dart';
+import 'package:proyecto_graduacion/widgets/utils/date/date_filter_form.dart';
 import 'package:proyecto_graduacion/widgets/utils/message_display.dart';
 
 class PatientsBloc extends BaseModel {
   PatientsBloc({
+    required PatientsRepository patientsRepository,
     required BuildContext context,
-  }) : _context = context {
+  })  : _context = context,
+        _patientsRepository = patientsRepository {
     _pacientesFiltrados = List.from(_pacientes);
+    filterFormDate = DateFilterForm(
+      context: context,
+      initialFirstDate: DateTime.now(),
+      initialLastDate: DateTime(
+        DateTime.now().year + 1,
+        DateTime.now().month,
+        DateTime.now().day,
+      ),
+      finalLastDate: DateTime(
+        DateTime.now().year + 1,
+        DateTime.now().month,
+        DateTime.now().day + 30,
+      ),
+      onUpdate: () {},
+    );
   }
 
+  final PatientsRepository _patientsRepository;
   final BuildContext _context;
   final formKey = GlobalKey<FormState>();
 
-  final List<Patient> _pacientes = [
-    Patient(
-        id: '1',
-        name: 'Ana García',
-        age: 35,
-        birthDate: '1988-05-15',
-        lastVisit: '2023-05-15',
-        address: 'Calle 1, Ciudad 1',
-        status: 'Activo'),
-    Patient(
-        id: '2',
-        name: 'Carlos López',
-        age: 42,
-        birthDate: '1988-05-15',
-        lastVisit: '2023-05-15',
-        address: 'Calle 1, Ciudad 1',
-        status: 'En tratamiento'),
-    Patient(
-        id: '3',
-        name: 'María Rodríguez',
-        age: 28,
-        birthDate: '1988-05-15',
-        lastVisit: '2023-05-15',
-        address: 'Calle 1, Ciudad 1',
-        status: 'Nuevo'),
-    Patient(
-        id: '4',
-        name: 'José Martínez',
-        age: 55,
-        birthDate: '1988-05-15',
-        lastVisit: '2023-05-15',
-        address: 'Calle 1, Ciudad 1',
-        status: 'Seguimiento'),
-    Patient(
-        id: '5',
-        name: 'Laura Sánchez',
-        age: 31,
-        birthDate: '1988-05-15',
-        lastVisit: '2023-05-15',
-        address: 'Calle 1, Ciudad 1',
-        status: 'Activo'),
-  ];
+  late DateFilterForm filterFormDate;
+  Patient? patient;
 
+  List<Patient> _pacientes =
+      []; // Inicialmente vacío ya que se llenará desde Firestore
   List<Patient> _pacientesFiltrados = [];
   String _searchQuery = '';
   int _sortColumnIndex = 0;
@@ -64,6 +46,19 @@ class PatientsBloc extends BaseModel {
   List<Patient> get pacientesFiltrados => _pacientesFiltrados;
   int get sortColumnIndex => _sortColumnIndex;
   bool get sortAscending => _sortAscending;
+
+  /// Función para cargar los pacientes desde Firestore
+  Future<void> loadPatients() async {
+    try {
+      _pacientes = await _patientsRepository
+          .getPatients(); // Obtener los pacientes del repo
+      _pacientesFiltrados =
+          List.from(_pacientes); // Inicializar la lista filtrada
+      notifyListeners(); // Notificar que los datos han sido cargados
+    } catch (e) {
+      MessageDisplay.failure(_context, 'Error al cargar pacientes');
+    }
+  }
 
   void filterPatients(String query) {
     _searchQuery = query;
@@ -89,13 +84,21 @@ class PatientsBloc extends BaseModel {
     notifyListeners();
   }
 
-  void savePatientNew() {
+  Future<void> savePatientNew(Patient patient) async {
     if (formKey.currentState!.validate()) {
-      // Guardar paciente
-      MessageDisplay.success(_context, 'Paciente guardado');
-
-      notifyListeners();
+      try {
+        await _patientsRepository
+            .addPatient(patient); // Guardar paciente en Firestore
+        _pacientes.add(patient); // Agregar a la lista local
+        _pacientesFiltrados =
+            List.from(_pacientes); // Actualizar la lista filtrada
+        MessageDisplay.success(_context, 'Paciente guardado');
+        notifyListeners();
+      } catch (e) {
+        MessageDisplay.failure(_context, 'Error al guardar paciente');
+      }
+    } else {
+      MessageDisplay.failure(_context, 'Formulario no válido');
     }
-    MessageDisplay.failure(_context, 'Paciente no guardado');
   }
 }

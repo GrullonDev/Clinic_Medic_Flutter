@@ -1,40 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:proyecto_graduacion/widgets/images/assets_image.dart';
-import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
+import 'package:provider/provider.dart';
+import 'package:proyecto_graduacion/festure/profile/bloc/profile_bloc.dart';
+import 'package:proyecto_graduacion/festure/widgets/profile_text_field.dart';
 import 'package:proyecto_graduacion/widgets/utils/appbar.dart';
 import 'package:proyecto_graduacion/widgets/utils/drawer.dart';
-import 'package:proyecto_graduacion/widgets/utils/back_button.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  final _formKey = GlobalKey<FormState>();
-  String _nombre = 'Dr. Juan Pérez';
-  String _especialidad = 'Cardiología';
-  String _email = 'juan.perez@clinica.com';
-  String _telefono = '+502 5690 6791';
-  String _licencia = 'MED-12345';
-
-  @override
   Widget build(BuildContext context) {
+    final profileBloc = context.read<ProfileBloc>();
+
     return Scaffold(
       appBar: CustomAppBar(
-        onBack: AppBackButton(
-          onPressed: () => context.go(AppRoutes.home),
-        ),
         title: 'Perfil',
         onTap: () {
-          if (_formKey.currentState!.validate()) {
-            _formKey.currentState!.save();
-            // Aquí iría la lógica para guardar los cambios
+          if (profileBloc.validarFormulario()) {
+            profileBloc.guardarPerfil();
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Perfil actualizado')),
+              const SnackBar(
+                content: Text('Perfil actualizado'),
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Error en los datos del perfil'),
+              ),
             );
           }
         },
@@ -45,7 +38,6 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
-            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -54,9 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       const CircleAvatar(
                         radius: 80,
-                        child: CustomImageWidget(
-                          imageUrl: '',
-                        ),
+                        child: Icon(Icons.person, size: 100),
                       ),
                       Positioned(
                         bottom: 0,
@@ -69,9 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: IconButton(
                             icon: const Icon(Icons.camera_alt,
                                 color: Colors.white),
-                            onPressed: () {
-                              // Lógica para cambiar la foto de perfil
-                            },
+                            onPressed: () {},
                           ),
                         ),
                       ),
@@ -79,32 +67,32 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                _buildTextField(
+                TextFieldWidget(
                   label: 'Nombre',
-                  initialValue: _nombre,
-                  onSaved: (value) => _nombre = value!,
+                  initialValue: profileBloc.nombre,
+                  onChanged: (value) => profileBloc.setNombre(value),
                 ),
-                _buildTextField(
+                TextFieldWidget(
                   label: 'Especialidad',
-                  initialValue: _especialidad,
-                  onSaved: (value) => _especialidad = value!,
+                  initialValue: profileBloc.especialidad,
+                  onChanged: (value) => profileBloc.setEspecialidad(value),
                 ),
-                _buildTextField(
+                TextFieldWidget(
                   label: 'Email',
-                  initialValue: _email,
+                  initialValue: profileBloc.email,
                   keyboardType: TextInputType.emailAddress,
-                  onSaved: (value) => _email = value!,
+                  onChanged: (value) => profileBloc.setEmail(value),
                 ),
-                _buildTextField(
+                TextFieldWidget(
                   label: 'Teléfono',
-                  initialValue: _telefono,
+                  initialValue: profileBloc.telefono,
                   keyboardType: TextInputType.phone,
-                  onSaved: (value) => _telefono = value!,
+                  onChanged: (value) => profileBloc.setTelefono(value),
                 ),
-                _buildTextField(
+                TextFieldWidget(
                   label: 'Número de Licencia',
-                  initialValue: _licencia,
-                  onSaved: (value) => _licencia = value!,
+                  initialValue: profileBloc.licencia,
+                  onChanged: (value) => profileBloc.setLicencia(value),
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
@@ -120,32 +108,6 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildTextField({
-    required String label,
-    required String initialValue,
-    required Function(String?) onSaved,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          labelText: label,
-          border: const OutlineInputBorder(),
-        ),
-        initialValue: initialValue,
-        keyboardType: keyboardType,
-        onSaved: onSaved,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Por favor ingrese $label';
-          }
-          return null;
-        },
       ),
     );
   }

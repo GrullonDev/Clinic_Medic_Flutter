@@ -12,12 +12,6 @@ class MessageDisplay {
     }
   }
 
-  @Deprecated('Replace with [failure] implementation')
-  static void display(
-    BuildContext context, [
-    String errorMessage = 'Verifica tu conexión a internet',
-  ]) {}
-
   static void failure(BuildContext context, String message) {
     hideSnackbar(context);
 

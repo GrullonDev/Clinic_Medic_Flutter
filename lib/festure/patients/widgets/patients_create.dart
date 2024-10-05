@@ -13,19 +13,39 @@ class PatientsCreate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<PatientsBloc>();
+
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Crear Paciente',
-        onTap: bloc.savePatientNew,
+        onTap: () async {
+          await bloc.savePatientNew(bloc.pacientesFiltrados.first);
+        },
         icon: Icons.save,
         onBack: AppBackButton(
           onPressed: () => context.go(AppRoutes.patients),
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.3, vertical: 16.5),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.3, vertical: 16.5),
         child: SingleChildScrollView(
-          child: FormPatientsCreate(),
+          child: FormPatientsCreate(
+            nombreController: TextEditingController(text: bloc.patient?.name),
+            apellidoController:
+                TextEditingController(text: bloc.patient?.lastName),
+            telefonoController:
+                TextEditingController(text: bloc.patient?.phone),
+            correoController: TextEditingController(text: bloc.patient?.email),
+            edadController:
+                TextEditingController(text: bloc.patient?.age.toString()),
+            filterFormDate: bloc.filterFormDate,
+            generoController: TextEditingController(text: bloc.patient?.gender),
+            direccionController:
+                TextEditingController(text: bloc.patient?.address),
+            ocupacionController:
+                TextEditingController(text: bloc.patient?.ocupation),
+            motivoConsultaController:
+                TextEditingController(text: bloc.patient?.motivoConsulta),
+          ),
         ),
       ),
     );

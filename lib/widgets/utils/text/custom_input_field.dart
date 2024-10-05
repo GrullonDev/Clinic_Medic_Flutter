@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum ValidatorType { email, phone, none }
+
 class CustomInputField extends StatelessWidget {
   final String labelText;
   final TextEditingController? controller;
@@ -8,6 +10,10 @@ class CustomInputField extends StatelessWidget {
   final int maxLines;
   final Color? backgroundColor;
   final Color? textColor;
+  final ValidatorType validatorType;
+  final VoidCallback? onTap;
+  final bool? readOnly;
+  final Icon? suffix;
 
   const CustomInputField({
     super.key,
@@ -18,7 +24,32 @@ class CustomInputField extends StatelessWidget {
     this.maxLines = 1,
     this.backgroundColor,
     this.textColor,
+    this.validatorType = ValidatorType.none,
+    this.onTap,
+    this.readOnly = false,
+    this.suffix,
   });
+
+  String? _validateInput(String? value) {
+    switch (validatorType) {
+      case ValidatorType.email:
+        final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+        if (value == null || !emailRegex.hasMatch(value)) {
+          return 'Please enter a valid email address';
+        }
+        break;
+      case ValidatorType.phone:
+        final phoneRegex = RegExp(r'^\+?[0-9]{10,13}$');
+        if (value == null || !phoneRegex.hasMatch(value)) {
+          return 'Please enter a valid phone number';
+        }
+        break;
+      case ValidatorType.none:
+      default:
+        return null;
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +65,7 @@ class CustomInputField extends StatelessWidget {
           labelStyle: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.black54, // Color de texto más legible
+            color: Colors.black54,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
@@ -45,10 +76,15 @@ class CustomInputField extends StatelessWidget {
           ),
           filled: true,
           fillColor: backgroundColor,
+          errorText: _validateInput(controller?.text),
         ),
         style: TextStyle(
-          color: textColor ?? Colors.black87, // Color del texto del campo
+          color: textColor ?? Colors.black87,
         ),
+        onChanged: (value) {
+          // Trigger validation on text change
+          _validateInput(value);
+        },
       ),
     );
   }

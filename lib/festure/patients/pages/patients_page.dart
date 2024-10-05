@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:proyecto_graduacion/domain/repository/patients/patients_repository.dart';
 import 'package:proyecto_graduacion/festure/patients/bloc/patients_bloc.dart';
+import 'package:proyecto_graduacion/injection_container.dart';
 import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
 import 'package:proyecto_graduacion/widgets/utils/appbar.dart';
 import 'package:proyecto_graduacion/widgets/utils/back_button.dart';
@@ -16,6 +18,7 @@ class PatientsPage extends StatelessWidget {
 
     return BaseModelScaffold(
       model: PatientsBloc(
+        patientsRepository: sl.get<PatientsRepository>(),
         context: context,
       ),
       builder: (context, value) => Scaffold(

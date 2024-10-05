@@ -1,223 +1,110 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:proyecto_graduacion/festure/patients/bloc/patients_bloc.dart';
+import 'package:proyecto_graduacion/widgets/utils/date/date_filter_form.dart';
+import 'package:proyecto_graduacion/widgets/utils/date/date_range_input.dart';
 import 'package:proyecto_graduacion/widgets/utils/text/custom_input_field.dart';
 
 class FormPatientsCreate extends StatelessWidget {
+  final TextEditingController nombreController;
+  final TextEditingController apellidoController;
+  final TextEditingController telefonoController;
+  final TextEditingController correoController;
+  final TextEditingController edadController;
+  final DateFilterForm filterFormDate;
+  final TextEditingController generoController;
+  final TextEditingController direccionController;
+  final TextEditingController ocupacionController;
+  final TextEditingController motivoConsultaController;
+
   const FormPatientsCreate({
     super.key,
+    required this.nombreController,
+    required this.apellidoController,
+    required this.telefonoController,
+    required this.correoController,
+    required this.edadController,
+    required this.filterFormDate,
+    required this.generoController,
+    required this.direccionController,
+    required this.ocupacionController,
+    required this.motivoConsultaController,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<PatientsBloc>();
-
     return Form(
-      key: bloc.formKey,
-      child: const Wrap(
+      child: Wrap(
         spacing: 16.0,
         runSpacing: 16.0,
         children: <Widget>[
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Nombre',
-            ),
+          CustomInputField(
+            labelText: 'Nombre',
+            controller: nombreController,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Apellido',
-            ),
+          CustomInputField(
+            labelText: 'Apellido',
+            controller: apellidoController,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Teléfono',
-              keyboardType: TextInputType.phone,
-            ),
+          CustomInputField(
+            labelText: 'Teléfono',
+            controller: telefonoController,
+            keyboardType: TextInputType.phone,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Correo Electrónico',
-              keyboardType: TextInputType.emailAddress,
-            ),
+          CustomInputField(
+            labelText: 'Correo Electrónico',
+            controller: correoController,
+            keyboardType: TextInputType.emailAddress,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Edad',
-              keyboardType: TextInputType.number,
-            ),
+          CustomInputField(
+            labelText: 'Edad',
+            controller: edadController,
+            keyboardType: TextInputType.number,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Fecha de nacimiento',
-              keyboardType: TextInputType.datetime,
-            ),
+          DateRangeInputs(
+            titleInitDate: 'Fecha de Nacimiento',
+            initDatecontroller: filterFormDate.initDateController,
+            onTapInitDate: filterFormDate.selectInitialDate,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Género',
-            ),
+          //  const CustomInputField(
+          //   labelText: 'Fecha de nacimiento',
+          //   controller: SelectDate(),
+          //   keyboardType: TextInputType.datetime,
+          //   validatorType: ValidatorType.none,
+          // ),
+          CustomInputField(
+            labelText: 'Género',
+            controller: generoController,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Dirección de Residencia',
-            ),
+          CustomInputField(
+            labelText: 'Dirección de Residencia',
+            controller: direccionController,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Ocupación',
-            ),
+          CustomInputField(
+            labelText: 'Ocupación',
+            controller: ocupacionController,
+            validatorType: ValidatorType.none,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Fecha de primera visita',
-              keyboardType: TextInputType.datetime,
-            ),
+          DateRangeInputs(
+            titleInitDate: 'Fecha de ultima visita',
+            initDatecontroller: filterFormDate.initDateController,
+            onTapInitDate: filterFormDate.selectInitialDate,
           ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Motivo de consulta',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Antecedentes médicos',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Medicamentos recetados',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Alergias',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Enfermedades crónicas',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos alimenticios',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de sueño',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de ejercicio',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de alcohol',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de tabaco',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de drogas',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de cafeína',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de azúcar',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de sal',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de grasas',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de carbohidratos',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de proteínas',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Hábitos de consumo de fibra',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Estado',
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Fecha de última visita',
-              keyboardType: TextInputType.datetime,
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Próxima cita',
-              keyboardType: TextInputType.datetime,
-            ),
-          ),
-          SizedBox(
-            width: 800,
-            child: CustomInputField(
-              labelText: 'Observaciones',
-              maxLines: 3,
-              textColor: Colors.white,
-            ),
+          /* CustomInputField(
+            labelText: 'Fecha de primera visita',
+            controller: fechaPrimeraVisitaController,
+            keyboardType: TextInputType.datetime,
+            validatorType: ValidatorType.none,
+          ), */
+          CustomInputField(
+            labelText: 'Motivo de consulta',
+            controller: motivoConsultaController,
+            validatorType: ValidatorType.none,
           ),
         ],
       ),

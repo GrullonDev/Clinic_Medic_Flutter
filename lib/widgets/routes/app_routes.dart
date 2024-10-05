@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_graduacion/festure/patients/pages/patients_page.dart';
 import 'package:proyecto_graduacion/festure/patients/widgets/patients_create.dart';
 import 'package:proyecto_graduacion/festure/profile/pages/profile_page.dart';
-import 'package:proyecto_graduacion/home.dart';
+import 'package:proyecto_graduacion/widgets/home.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
