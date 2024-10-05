@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_graduacion/festure/login/pages/login_page.dart';
 import 'package:proyecto_graduacion/festure/patients/pages/patients_page.dart';
 import 'package:proyecto_graduacion/festure/patients/widgets/patients_create.dart';
 import 'package:proyecto_graduacion/festure/profile/pages/profile_page.dart';
@@ -6,7 +7,8 @@ import 'package:proyecto_graduacion/widgets/home.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRoutes {
-  static const String home = '/';
+  static const String login = '/';
+  static const String home = '/home';
   static const String profile = '/profile';
   static const String patients = '/patients';
   static const String patientsCreate = '/patientsCreate';
@@ -14,8 +16,12 @@ class AppRoutes {
 
   static GoRouter createRouter() {
     return GoRouter(
-      initialLocation: home,
+      initialLocation: login,
       routes: <RouteBase>[
+        GoRoute(
+          path: login,
+          builder: (context, state) => const LoginPage(),
+        ),
         GoRoute(
           path: home,
           builder: (context, state) => const Home(),
@@ -35,7 +41,7 @@ class AppRoutes {
       ],
       redirect: (context, state) {
         final path = state.uri.path;
-        if (path == '/') return home;
+        if (path == '/') return login;
         return null;
       },
       errorPageBuilder: (context, state) => MaterialPage(

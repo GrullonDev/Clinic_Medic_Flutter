@@ -15,8 +15,8 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Clínica Médica',
-        onTap: () {},
         onSearchPressed: () {},
+        onTap: () => GoRouter.of(context).go('/'),
         icon: Icons.exit_to_app_outlined,
       ),
       drawer: const AppDrawer(),

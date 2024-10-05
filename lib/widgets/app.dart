@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyecto_graduacion/domain/repository/patients/patients_repository.dart';
 import 'package:proyecto_graduacion/festure/dashboard/bloc/dashboard_bloc.dart';
+import 'package:proyecto_graduacion/festure/login/bloc/login_bloc.dart';
 import 'package:proyecto_graduacion/festure/patients/bloc/patients_bloc.dart';
 import 'package:proyecto_graduacion/festure/profile/bloc/profile_bloc.dart';
 import 'package:proyecto_graduacion/injection_container.dart';
@@ -15,6 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => LoginBloc(),
+        ),
         ChangeNotifierProvider(
           create: (_) => DashboardViewModel(),
         ),
