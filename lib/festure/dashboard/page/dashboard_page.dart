@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto_graduacion/festure/dashboard/widgets/dashboard_grid.dart';
+import 'package:go_router/go_router.dart';
+import 'package:proyecto_graduacion/festure/dashboard/page/dashboard_layout.dart';
+import 'package:proyecto_graduacion/widgets/utils/appbar.dart';
+import 'package:proyecto_graduacion/widgets/utils/drawer.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -7,12 +10,16 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
+      appBar: CustomAppBar(
+        title: 'Clínica Médica',
+        onSearchPressed: () {},
+        onTap: () => GoRouter.of(context).go('/'),
+        icon: Icons.exit_to_app_outlined,
       ),
+      drawer: const AppDrawer(),
       body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: DashboardGrid(),
+        padding: EdgeInsets.all(45.0),
+        child: DashboardLayout(),
       ),
     );
   }
