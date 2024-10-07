@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:proyecto_graduacion/festure/login/bloc/login_bloc.dart';
 import 'package:proyecto_graduacion/widgets/images/assets_image.dart';
-import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<LoginBloc>();
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 500),
       child: Column(
@@ -22,24 +24,26 @@ class LoginForm extends StatelessWidget {
             width: 300,
             isNetwork: false,
           ),
-          const Flexible(
+          Flexible(
             child: TextField(
-              decoration: InputDecoration(
+              controller: bloc.emailController,
+              decoration: const InputDecoration(
                 labelText: 'Correo Electrónico',
                 border: OutlineInputBorder(),
               ),
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
           const SizedBox(height: 16.0),
-          const Flexible(
+          Flexible(
             child: TextField(
+              controller: bloc.passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Contraseña',
                 border: OutlineInputBorder(),
               ),
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
           const SizedBox(height: 16.0),
@@ -57,9 +61,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: () {
-              context.go(AppRoutes.home);
-            },
+            onPressed: () => bloc.login(),
             child: const Text(
               'Iniciar Sesión',
               style: TextStyle(fontSize: 20),

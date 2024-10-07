@@ -17,7 +17,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => LoginBloc(),
+          create: (_) => LoginBloc(
+            context: context,
+          ),
         ),
         ChangeNotifierProvider(
           create: (_) => DashboardViewModel(),

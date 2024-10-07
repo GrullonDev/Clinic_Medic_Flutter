@@ -9,7 +9,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseModelScaffold(
-      model: LoginBloc(),
+      model: LoginBloc(
+        context: context,
+      ),
       builder: (context, _) {
         return const Scaffold(
           body: Center(
