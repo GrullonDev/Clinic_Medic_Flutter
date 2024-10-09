@@ -61,7 +61,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: () => bloc.login(),
+            onPressed: bloc.login,
             child: const Text(
               'Iniciar Sesión',
               style: TextStyle(fontSize: 20),
@@ -76,9 +76,7 @@ class LoginForm extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               TextButton(
-                onPressed: () {
-                  // Aquí se manejará la lógica para registrarse.
-                },
+                onPressed: bloc.navigateToRegister,
                 child: const Text(
                   ' Regístrate',
                   style: TextStyle(fontSize: 16),

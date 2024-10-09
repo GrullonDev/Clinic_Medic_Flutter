@@ -29,8 +29,12 @@ class CustomImageWidget extends StatelessWidget {
       );
     } else {
       // Si la imagen es local (de los assets)
-      return SvgPicture.asset('assets/$imageUrl.svg',
-          height: height, width: width, fit: fit);
+      return SvgPicture.asset(
+        'assets/$imageUrl.svg',
+        height: height,
+        width: width,
+        fit: fit,
+      );
     }
   }
 }

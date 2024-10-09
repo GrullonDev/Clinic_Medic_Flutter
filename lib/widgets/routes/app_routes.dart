@@ -5,9 +5,11 @@ import 'package:proyecto_graduacion/festure/patients/pages/patients_page.dart';
 import 'package:proyecto_graduacion/festure/patients/widgets/patients_create.dart';
 import 'package:proyecto_graduacion/festure/profile/pages/profile_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:proyecto_graduacion/festure/register/pages/register_page.dart';
 
 class AppRoutes {
   static const String login = '/';
+  static const String register = '/register';
   static const String home = '/home';
   static const String profile = '/profile';
   static const String patients = '/patients';
@@ -21,6 +23,10 @@ class AppRoutes {
         GoRoute(
           path: login,
           builder: (context, state) => const LoginPage(),
+        ),
+        GoRoute(
+          path: register,
+          builder: (context, state) => const RegisterPage(),
         ),
         GoRoute(
           path: home,

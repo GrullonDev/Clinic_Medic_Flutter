@@ -5,6 +5,7 @@ import 'package:proyecto_graduacion/festure/dashboard/bloc/dashboard_bloc.dart';
 import 'package:proyecto_graduacion/festure/login/bloc/login_bloc.dart';
 import 'package:proyecto_graduacion/festure/patients/bloc/patients_bloc.dart';
 import 'package:proyecto_graduacion/festure/profile/bloc/profile_bloc.dart';
+import 'package:proyecto_graduacion/festure/register/bloc/register_bloc.dart';
 import 'package:proyecto_graduacion/injection_container.dart';
 import 'package:proyecto_graduacion/widgets/routes/app_routes.dart';
 
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
           create: (_) => LoginBloc(
             context: context,
           ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RegisterBloc(context: context),
         ),
         ChangeNotifierProvider(
           create: (_) => DashboardViewModel(),

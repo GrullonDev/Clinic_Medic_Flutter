@@ -82,6 +82,10 @@ class LoginBloc extends BaseModel {
     }
   }
 
+  void navigateToRegister() {
+    GoRouter.of(_context).go(AppRoutes.register);
+  }
+
   @override
   void dispose() {
     emailController.dispose();
